@@ -1,0 +1,8 @@
+# Python virtualenv
+venv/
+# hidden OS specific files
+.DS_Store
+# cfg files
+*.cfg
+*.csv
+*.json
