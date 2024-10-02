@@ -4,7 +4,7 @@ import requests
 config = configparser.ConfigParser()
 config.read_file(open('keys.cfg'))
 
-API_KEY = "7f007f010a5cb2f7fc221339cfb368e1"
+API_KEY = config.get("API_KEY")
 CITY = "Miami"
 
 def get_weather_data(api_key, city):
