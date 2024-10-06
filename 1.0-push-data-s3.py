@@ -13,8 +13,8 @@ API_KEY = config.get("openweathermap", "API_KEY")
 CITY = "Miami"
 
 
-def get_weather_data(api_key, city):
-
+def get_weather_data(api_key: str, city: str):
+    """Extract response from weather API"""
     url = f"http://api.openweathermap.org/data/2.5/weather?q={CITY}&appid={API_KEY}&units=imperial"
     response = requests.get(url)
 
@@ -24,9 +24,12 @@ def get_weather_data(api_key, city):
         raise Exception(f"Error retrieving data from API: {response.status_code}")
     
 
-def upload_to_s3(bucket_name, data, key):
+def upload_to_s3(bucket_name: str, data: dict, key: str):
+    """Upload specific data fields from API to s3 bucket"""
     s3 = boto3.client('s3')
-    s3.put_object(Bucket=bucket_name, Key=key, Body=json.dumps(data))
+    s3.put_object(Bucket=bucket_name, 
+                  Key=key, 
+                  Body=json.dumps(data))
 
 
 if __name__ == '__main__':
@@ -49,3 +52,4 @@ if __name__ == '__main__':
                  data=weather,
                  key=f'data/{timestamp}.json'
             )
+    
